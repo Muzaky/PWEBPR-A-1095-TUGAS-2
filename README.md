@@ -1,0 +1,1 @@
+"Barang siapa ? barang gwe"
