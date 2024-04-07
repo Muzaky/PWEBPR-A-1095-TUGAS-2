@@ -1,6 +1,6 @@
 <?php
 
-Class Form {
+Class Contact {
     static function select(){
 
     }
