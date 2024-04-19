@@ -15,7 +15,7 @@
               </div>
             
               <div class="mt-6 sm:mx-auto sm:w-full sm:max-w-sm flex flex-col">
-                  <form class="flex flex-col " action="login.html">           
+                  <form class="flex flex-col " action="login.php">           
                         <label for="username" class="block text-sm font-medium leading-6 text-gray-900 font-[poppins]">Username</label>
                             <div class="mt-1">
                                 <input type="text"  class="block w-full rounded-[12px] border-0 px-[12px] py-[8px] font-[poppins] text-gray-900 shadow-sm placeholder:text-gray-200 focus:ring-2 focus:ring-inset focus:ring-[#80411e] sm:text-sm sm:leading-6" placeholder="Masukkan Username" required="">
@@ -48,7 +48,7 @@
             
                 <p class="mt-4 text-center text-sm text-[#ad6d2f] font-[poppins]">
                   Have member account ?
-                  <a href="./login.html" class="font-semibold leading-6 text-[#37251b] hover:text-[#80411e] font-[poppins]">Login here</a>
+                  <a href="login.php" class="font-semibold leading-6 text-[#37251b] hover:text-[#80411e] font-[poppins]">Login here</a>
                 </p>
               </div>
         </div>
