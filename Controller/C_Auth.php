@@ -41,28 +41,27 @@ class C_Auth
         }
     }
 
-    // static function saveRegister()
-    // {
-    //     $post = array_map('htmlspecialchars', $_POST);
+    static function saveRegister()
+    {
+        $post = array_map('htmlspecialchars', $_POST);
 
-    //     if ($post['password'] !== $post['confirm_password']) {
-    //         header('Location: ' . BASEURL . 'register?failed=true');
-    //         exit;
-    //     }
+        if ($post['password'] !== $post['confirm_password']) {
+            header('Location: ' . BASEURL . 'register?failed=true');
+            exit;
+        }
 
-    //     $user = Credentials::register([
-    //         'name' => $post['name'],
-    //         'username' => $post['username'],
-    //         'password' => $post['password']
-    //     ]);
+        $user = M_Credentials::register([
+            'username' => $post['username'],
+            'password' => $post['password']
+        ]);
 
 
-    //     if ($user) {
-    //         header('Location: ' . BASEURL . 'login');
-    //     } else {
-    //         header('Location: ' . BASEURL . 'register?failed=true');
-    //     }
-    // }
+        if ($user) {
+            header('Location: ' . BASEURL . 'login');
+        } else {
+            header('Location: ' . BASEURL . 'register?failed=true');
+        }
+    }
 
     // static function logout()
     // {

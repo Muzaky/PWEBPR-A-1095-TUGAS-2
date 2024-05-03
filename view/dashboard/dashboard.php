@@ -131,7 +131,7 @@
                                                 </td>
                                                 <td class="px-6 py-4 flex gap-x-3 justify-center">
                                                     <!-- Edit button -->
-                                                    <a href="update.php?id=<?php echo $contact['id'];?>" class="font-medium text-lg bg-transparent rounded-md border-t-2 border-l-2 border-b-4 border-r-4 border-green-600">
+                                                    <a href="update.php?id=<?php echo $contact['id']; ?>" class="font-medium text-lg bg-transparent rounded-md border-t-2 border-l-2 border-b-4 border-r-4 border-green-600">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-6 h-6">
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
                                                         </svg><i>
@@ -159,8 +159,8 @@
                                                             </div>
                                                             <div class=" mt-3 flex justify-end">
                                                                 <button onclick="hideDelButton(<?php echo $contact['id']; ?>)" class="bg-white rounded px-4 py-2 mr-3 text-black cursor-pointer hover:bg-gray-300">Batal</button>
-                                                                <form class="flex" id="deleteForm_<?php echo $contact['id']; ?>">
-                                                                    <a href="" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded">Hapus</a>
+                                                                <form class="flex" id="deleteForm_<?php echo $contact['id']; ?>" action="">
+                                                                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded">Hapus</button>
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -212,7 +212,7 @@
                 <div class="flex items-center justify-center mt-10">
                     <img src="./Vector.png" alt="">
                 </div>
-                <form class="flex justify-center items-center flex-col" action="index.php?action=insert" method="POST" enctype="multipart/form-data">
+                <form class="flex justify-center items-center flex-col" action="<?= urlpath('dashboard/insert') ?>" method="POST" enctype="multipart/form-data">
 
                     <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase font-[poppins] text-[#37251b]">
                         Tambahkan Contact Baru
@@ -267,8 +267,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script>
-       
-
         function showCreateButton() {
             let createbutton = document.getElementById('createbutton')
 
@@ -289,27 +287,42 @@
             }, 500);
         }
 
+        // function showDelButton(id) {
+        //     console.log("ID received:", id);
+        //     let delbutton = document.getElementById('delbutton_' + id);
+        //     let deleteForm = delbutton.querySelector('#deleteForm_' + id);
+        //     deleteForm.href = "index.php?action=delete&id=" + id;
+
+        //     if (deleteForm) {
+        //         let deleteLink = deleteForm.querySelector('a'); // Select the <a> element within the form
+        //         if (deleteLink) {
+        //             deleteLink.href = "index.php?action=delete&id=" + id;
+        //             delbutton.classList.remove('hidden');
+        //             delbutton.classList.add('flex');
+        //             setTimeout(() => {
+        //                 delbutton.classList.add('opacity-100');
+        //             }, 20);
+        //         } else {
+        //             console.log("Anchor element not found within deleteForm");
+        //         }
+        //     } else {
+        //         console.log("deleteForm not found");
+        //     }
+        // }
+
         function showDelButton(id) {
             console.log("ID received:", id);
-            let delbutton = document.getElementById('delbutton_' + id);
-            let deleteForm = delbutton.querySelector('#deleteForm_' + id);
-            deleteForm.href = "index.php?action=delete&id=" + id;
+            let delbutton = document.getElementById('delbutton_' + id)
+            let delForm = document.getElementById('deleteForm_' + id);
+            let delLink = delForm.querySelector('button');
+            delLink.action = "<?= urlpath('dashboard/delete/') ?>" + id; // Select the <a> element within the form
 
-            if (deleteForm) {
-                let deleteLink = deleteForm.querySelector('a'); // Select the <a> element within the form
-                if (deleteLink) {
-                    deleteLink.href = "index.php?action=delete&id=" + id;
-                    delbutton.classList.remove('hidden');
-                    delbutton.classList.add('flex');
-                    setTimeout(() => {
-                        delbutton.classList.add('opacity-100');
-                    }, 20);
-                } else {
-                    console.log("Anchor element not found within deleteForm");
-                }
-            } else {
-                console.log("deleteForm not found");
-            }
+            delbutton.classList.remove('hidden')
+            delbutton.classList.add('flex')
+            setTimeout(() => {
+                delbutton.classList.add('opacity-100')
+            }, 20);
+
         }
 
 
@@ -323,4 +336,5 @@
         }
     </script>
 </body>
+
 </html>

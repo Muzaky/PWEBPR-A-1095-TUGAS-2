@@ -21,4 +21,38 @@ class Contact
         return $rows;
     }
 
+    static function delete($id){
+        global $conn;
+
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+
+            $sql = "DELETE FROM contact WHERE id = $id";
+            $hasil = mysqli_query($conn, $sql);
+
+            if ($hasil) {
+                header("Location:".BASEURL."dashboard");
+                exit(); // Terminate the script after redirecting
+            } else {
+                echo "<div class='alert alert-danger'> Data Gagal disimpan.</div>";
+            }
+        }
+    }
+
+    static function insert($user_id, $owner, $no_hp, $email) {
+        global $conn; // Access the $conn variable from the global scope
+    
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $sql = "INSERT INTO contact (user_id, owner, no_hp, email) VALUES ('$user_id', '$owner', '$no_hp', '$email')";
+    
+            $hasil = mysqli_query($conn, $sql);
+    
+            if ($hasil) {
+                header("Location:".BASEURL."dashboard");
+                exit(); // Terminate the script after redirecting
+            } else {
+                echo "<div class='alert alert-danger'> Data Gagal disimpan.</div>";
+            }
+        }
+    }
+
 }
