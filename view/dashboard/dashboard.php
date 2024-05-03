@@ -1,39 +1,3 @@
-<?php
-require_once 'C:\laragon\www\PWEBPR-A-1095\app\Models\Controller\contact.php'; // Include the Contact class definition
-
-
-$arr = Contact::index();
-
-
-
-if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    $result = Contact::delete($id);
-    // Output or handle the result as needed
-    echo $result;
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Assuming you have form fields with names user_id, owner, no_hp, and email
-    $user_id = $_POST["user_id"];
-    $owner = $_POST["owner"];
-    $no_hp = $_POST["no_hp"];
-    $email = $_POST["email"];
-
-    // Call the insert method with the form data
-    $result = Contact::insert($user_id, $owner, $no_hp, $email);
-
-    // Output or handle the result as needed
-    echo $result;
-}
-
-
-
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- Sidebar -->
         <div class="flex flex-col bg-transparent 0 w-80">
             <div class="flex justify-center items-center">
-                <img class="w-[200px] h-[50px] mt-[50px] mb-[88px]" src="./Vector 2.png" alt="coffeality">
+                <img class="w-[200px] h-[50px] mt-[50px] mb-[88px]" src="public/Vector 2.png" alt="coffeality">
             </div>
 
             <div class="">
@@ -151,35 +115,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         </th>
                                     </tr>
                                 </thead>
-                                <?php if (!empty($arr['id'])) {
-                                    foreach ($arr['id'] as $idx => $id) {
+                                <?php if (isset($contacts)) {
+                                    foreach ($contacts as $contact) {
                                 ?>
                                         <tbody>
                                             <tr class="font-[poppins]">
                                                 <th scope="row" class="px-6 py-4 font-medium text-[16px] text-[#37251b] whitespace-nowrap dark:text-white">
-                                                    <?= $id ?>
+                                                    <?php echo $contact['id']; ?>
                                                 </th>
                                                 <td class="px-6 py-4 text-[16px] font-medium text-[#37251b]">
-                                                    <?= $arr['owner'][$idx] ?>
+                                                    <?php echo $contact['owner']; ?>
                                                 </td>
                                                 <td class="px-6 py-4 text-[16px] font-medium text-[#37251b]">
-                                                    <?= $arr['no_hp'][$idx] ?>
+                                                    <?php echo $contact['no_hp'] ?>
                                                 </td>
                                                 <td class="px-6 py-4 flex gap-x-3 justify-center">
                                                     <!-- Edit button -->
-                                                    <a href="update.php?id=<?= $id ?>" class="font-medium text-lg bg-transparent rounded-md border-t-2 border-l-2 border-b-4 border-r-4 border-green-600">
+                                                    <a href="update.php?id=<?php echo $contact['id'];?>" class="font-medium text-lg bg-transparent rounded-md border-t-2 border-l-2 border-b-4 border-r-4 border-green-600">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-6 h-6">
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
                                                         </svg><i>
                                                             <!-- Icon -->
                                                         </i></a>
-                                                    <button onclick="showDelButton(<?= $id ?>)" class="font-medium text-lg bg-transparent rounded-md border-t-2 border-l-2 border-b-4 border-r-4 border-red-600">
+                                                    <button onclick="showDelButton(<?php echo $contact['id']; ?>)" class="font-medium text-lg bg-transparent rounded-md border-t-2 border-l-2 border-b-4 border-r-4 border-red-600">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-6 h-6">
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                         </svg><i>
                                                             <!-- Icon -->
                                                         </i></button>
-                                                    <div id="delbutton_<?= $id ?>" class="fixed left-0 top-0 bg-black bg-opacity-40 w-screen h-screen flex items-center justify-center opacity-0 hidden 
+                                                    <div id="delbutton_<?php echo $contact['id']; ?>" class="fixed left-0 top-0 bg-black bg-opacity-40 w-screen h-screen flex items-center justify-center opacity-0 hidden 
                                                     transition-opacity duration-500">
                                                         <div class="bg-white rounded shadow-md p-8 w-[25%] gap-5 flex-col overflow-hidden">
                                                             <div class="flex gap-3">
@@ -194,8 +158,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                                 </div>
                                                             </div>
                                                             <div class=" mt-3 flex justify-end">
-                                                                <button onclick="hideDelButton(<?= $id ?>)" class="bg-white rounded px-4 py-2 mr-3 text-black cursor-pointer hover:bg-gray-300">Batal</button>
-                                                                <form class="flex" id="deleteForm_<?= $id ?>">
+                                                                <button onclick="hideDelButton(<?php echo $contact['id']; ?>)" class="bg-white rounded px-4 py-2 mr-3 text-black cursor-pointer hover:bg-gray-300">Batal</button>
+                                                                <form class="flex" id="deleteForm_<?php echo $contact['id']; ?>">
                                                                     <a href="" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded">Hapus</a>
                                                                 </form>
                                                             </div>
@@ -236,7 +200,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <!--Modal Create-->
-    <div id="createbutton" class="fixed left-0 top-0 bg-black bg-opacity-40 w-screen h-screen flex items-center justify-center opacity-0 transition-opacity duration-500 hidden">
+    <div id="createbutton" class="absolute left-0 top-0 bg-black bg-opacity-40 w-screen h-screen flex items-center justify-center opacity-0 transition-opacity duration-500 hidden">
         <div class="bg-[#d2c1b0] relative flex flex-col min-w-0 break-words  mb-6 shadow-lg rounded-[16px] bg-blueGray-100 border-0">
             <button onclick="hideCreateButton()" class="absolute top-0 left-0 mt-3 ml-3 text-[#37251b] hover:text-[#80411e]">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
@@ -303,7 +267,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script>
-        var id = <?php echo $id; ?>;
+       
 
         function showCreateButton() {
             let createbutton = document.getElementById('createbutton')
@@ -349,7 +313,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
 
-
         function hideDelButton(id) {
             let delbutton = document.getElementById('delbutton_' + id);
             delbutton.classList.add('opacity-0')
@@ -360,5 +323,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </script>
 </body>
-
 </html>

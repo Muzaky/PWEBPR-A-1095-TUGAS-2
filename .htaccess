@@ -1,0 +1,6 @@
+RewriteEngine On
+    RewriteBase /PWEBPR-A-1095/
+    RewriteRule ^index\\.php$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /PWEBPR-A-1095/index.php [L]

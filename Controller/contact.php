@@ -1,5 +1,6 @@
-<?php require_once 'C:\laragon\www\PWEBPR-A-1095\app\Models\database.php';
-
+<?php 
+require_once 'C:\laragon\www\PWEBPR-A-1095\app\Models\database.php';
+include_once 'config/connection.php';
 class Contact
 {
     static function index()

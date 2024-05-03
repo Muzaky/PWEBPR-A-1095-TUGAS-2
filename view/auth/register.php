@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffeality | Register</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
+
 <body class="flex h-[100vh] justify-center bg-[#8f755f] ">
     <div class="flex flex-col justify-center items-center ">
         <div class="container flex flex-col justify-center items-center w-[500px] h-[600px] border-orange-950 border shadow bg-[#d2c1b0] rounded-[16px]">
             <div class="flex flex-col sm:mx-auto sm:w-full sm:max-w-sm items-center">
-                <img src="./Vector.png" alt="coffeality">
+                <img src="public/Vector.png" alt="coffeality">
                
               </div>
             
@@ -54,4 +47,3 @@
         </div>
     </div>
 </body>
-</html>
