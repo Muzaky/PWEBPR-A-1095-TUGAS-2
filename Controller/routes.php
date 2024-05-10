@@ -12,12 +12,14 @@ Router::url('/', 'get', function () {
 Router::url('login', 'get', 'C_Auth::login');
 Router::url('register', 'get', 'C_Auth::register');
 Router::url('dashboard', 'get', 'C_Dashboard::index');
-Router::url('dashboard/insert', 'post', 'C_Dashboard::insert');
-Router::url('dashboard/delete/{id}', 'delete', 'C_Dashboard::delete');
 
 
 # POST
+Router::url('dashboard/insert', 'post', 'C_Dashboard::insert');
+Router::url('dashboard/delete', 'post', 'C_Dashboard::delete');
 Router::url('login', 'post', 'C_Auth::saveLogin');
 Router::url('register', 'post', 'C_Auth::saveRegister');
+Router::url('logout', 'post', 'C_Auth::Logout');
+Router::url('dashboard/edit', 'post', 'C_Dashboard::edit');
 
 new Router();

@@ -14,25 +14,51 @@ class C_Dashboard
             header('Location: ' . BASEURL . 'login?auth=false');
             exit;
         } else {
-            view('dashboard/dashboard', [ 'contacts' => Contact::select()]);
+            view('dashboard/dashboard', [ 'contacts' => Contact::select(), 'user' => $_SESSION['user']]);
         }
     }
 
     static function insert()
     {
-        $post = array_map('htmlspecialchars', $_POST);
+        if (!isset($_SESSION['user'])) {
+            header('Location: ' . BASEURL . 'login?auth=false');
+            exit;
+        } else {
+            $post = array_map('htmlspecialchars', $_POST);
+    
+            $id_credentials = $_SESSION['user']['id'];
+            $owner = $post['owner'];
+            $no_hp = $post['no_hp'];
+            $email = $post['email'];
+    
+            Contact::insert($id_credentials, $owner, $no_hp, $email);
 
-        $user_id = $post['user_id'];
-        $owner = $post['owner'];
-        $no_hp = $post['no_hp'];
-        $email = $post['email'];
+            
+        }
+    }
+    static function edit()
+    {
+        if (!isset($_SESSION['user'])) {
+            header('Location: ' . BASEURL . 'login?auth=false');
+            exit;
+        } else {
+            $post = array_map('htmlspecialchars', $_POST);
+            
+            $id = $post['id'];
+            $owner = $post['owner'];
+            $no_hp = $post['no_hp'];
+            $email = $post['email'];
+    
+            Contact::edit($id, $owner, $no_hp, $email);
 
-        Contact::insert($user_id, $owner, $no_hp, $email);
+            
+        }
     }
 
-    static function delete($id)
+    static function delete()
     {
-        $id = $_GET['id'];
+        $post = array_map('htmlspecialchars', $_POST);
+        $id = $post['id'];
         Contact::delete($id);
     }
 
