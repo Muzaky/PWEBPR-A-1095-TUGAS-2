@@ -12,6 +12,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 
 </head>
+<?php
+var_dump($_SESSION);
+
+?>
+
 
 <body class="flex flex-col ">
     <!-- Sidebar -->
@@ -117,13 +122,19 @@
                                     </tr>
                                 </thead>
                                 <?php if (isset($contacts)) {
+                                    $count = 0;
+                                    $i = 1;
+                                    echo "<script>console.log(" . json_encode($contacts) . ")</script>";
                                     foreach ($contacts as $contact) {
+
                                         if ($contact['id_credentials'] == $_SESSION['user']['id']) {
+
+                                            $count++;
                                 ?>
                                             <tbody>
                                                 <tr class="font-[poppins]">
                                                     <th scope="row" class="px-6 py-4 font-medium text-[16px] text-[#37251b] whitespace-nowrap dark:text-white">
-                                                        <?php echo $contact['id']; ?>
+                                                        <?php echo $i; ?>
                                                     </th>
                                                     <td class="px-6 py-4 text-[16px] font-medium text-[#37251b]">
                                                         <?php echo $contact['owner']; ?>
@@ -148,7 +159,7 @@
                                                         </button>
                                                     </td>
                                                     <!-- Edit Modal -->
-                                                    <div  id="editbutton_<?php echo $contact['id']; ?>" class="fixed top-0 left-0 flex items-center justify-center hidden w-screen h-screen transition-opacity duration-500 bg-black opacity-0 bg-opacity-40">
+                                                    <div id="editbutton_<?php echo $contact['id']; ?>" class="fixed top-0 left-0 flex items-center justify-center hidden w-screen h-screen transition-opacity duration-500 bg-black opacity-0 bg-opacity-40">
                                                         <div class="bg-[#d2c1b0] relative flex flex-col min-w-0 break-words  mb-6 shadow-lg rounded-[16px] bg-blueGray-100 border-0">
                                                             <button onclick="hideEditButton(<?php echo $contact['id']; ?>)" class="relative top-0 left-0 mt-3 ml-3 text-[#37251b] hover:text-[#80411e]">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
@@ -172,7 +183,7 @@
                                                                             <div class="w-full mb-3">
 
 
-                                                                                <input type="text" name="id" id="id" class="text-[#37251b] border-0 px-3  placeholder-blueGray-300 text-blueGray-600 bg-[#f4f4f4] rounded-[8px] text-sm shadow focus:outline-none focus:ring focus:ring-[#37251b] w-[500px] ease-linear transition-all duration-150" value="<?php echo $contact['id']; ?>" placeholder=>
+                                                                                <input type="text" name="id" id="id" class="text-[#37251b] border-0 px-3  placeholder-blueGray-300 text-blueGray-600 bg-[#f4f4f4] rounded-[8px] text-sm shadow focus:outline-none focus:ring focus:ring-[#37251b] w-[500px] ease-linear transition-all duration-150 hidden" value="<?php echo $contact['id']; ?>" placeholder=>
                                                                                 </input>
                                                                                 <label class="block uppercase text-blueGray-600 text-xs font-bold  mt-4 text-[#37251b]" htmlfor="grid-password">
                                                                                     Owner
@@ -228,19 +239,22 @@
                                                         </div>
                                                     </div>
                                                 </tr>
+                                                <?php $i++; ?>
                                             </tbody>
                                         <?php
-                                        } else {
-                                        ?>
-                                            <tbody>
-                                                <tr>
-                                                    <td colspan="5" class=" py-4 text-[16px] font-medium text-[#37251b] text-center">Tidak Ada Data</td>
-                                                </tr>
-                                            </tbody>
-                                <?php
                                         }
                                     }
+                                    if ($count == 0) {
+                                        ?>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="5" class=" py-4 text-[16px] font-medium text-[#37251b] text-center">Tidak Ada Data</td>
+                                            </tr>
+                                        </tbody>
+                                <?php
+                                    }
                                 }
+
                                 ?>
                             </table>
                         </div>
@@ -277,12 +291,7 @@
 
                         <div class="w-full px-4">
                             <div class="w-full mb-3">
-                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2 text-[#37251b]" htmlfor="grid-password">
-                                    User Id
-                                </label>
 
-                                <input type="text" name="user_id" id="user_id" class="text-[#37251b] border-0 px-3  placeholder-blueGray-300 text-blueGray-600 bg-[#f4f4f4] rounded-[8px] text-sm shadow focus:outline-none focus:ring focus:ring-[#37251b] w-[500px] ease-linear transition-all duration-150" value="" placeholder=>
-                                </input>
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold  mt-4 text-[#37251b]" htmlfor="grid-password">
                                     Owner
                                 </label>
